@@ -100,7 +100,7 @@ func (s *Server) BusinessOrdersOidPost(w http.ResponseWriter, r *http.Request) {
 		preStage []interface{}
 	)
 	switch stage {
-	case ORDER_STAGE_NEW:
+	case ORDER_STAGE_NEW, ORDER_STAGE_PAID:
 		preStage = []interface{}{ORDER_STAGE_NEW}
 		status = 0
 	case ORDER_STAGE_B_CANCEL:

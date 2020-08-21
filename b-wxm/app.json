@@ -1,0 +1,18 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/business/index/index",
+    "pages/business/valid/valid",
+    "pages/business/item/add",
+    "pages/customer/business/business",
+    "pages/customer/item/item",
+    "pages/customer/address/address",
+    "pages/customer/order/order"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "BangNiMai",
+    "navigationBarTextStyle": "black"
+  }
+}

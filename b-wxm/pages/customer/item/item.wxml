@@ -1,0 +1,69 @@
+<!--pages/customer/item/item.wxml-->
+<view class="page">
+  <view class="page__hd">
+    <view class="page__title">{{item.name}}</view>
+    <view style="text-align:center">
+      <image bindtap="showGallery" wx:if="{{item.pic}}" src="{{item.pic}}" style="height: 200px; width: auto; max-width: 100%; min-width: 50%"/>
+    </view>
+    <view class="page__desc price">{{item.price/100}}</view>
+    <view class="page__desc">{{item.desc}}</view>
+  </view>
+  <view class="page__bd">
+    <mp-form id="form" rules="{{rules}}" models="{{formData}}"></mp-form>
+    <view class="weui-cells__title">数量</view>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+            <view class="weui-cell__bd">
+                <input type="number" value="{{formData.counts}}" bindinput="formInputChange" data-field="counts"  class="weui-input" placeholder=""/>
+            </view>
+        </view>
+    </view>
+    <view class="weui-cells__title">收货人</view>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+            <view class="weui-cell__bd">
+                <input value="{{formData.reciever}}" bindinput="formInputChange" data-field="reciever" class="weui-input" placeholder=""/>
+            </view>
+        </view>
+    </view>
+    <view class="weui-cells__title">联系方式</view>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+            <view class="weui-cell__bd">
+                <input value="{{formData.phone}}" bindinput="formInputChange" data-field="phone"  class="weui-input" placeholder=""/>
+            </view>
+        </view>
+    </view>
+    <view class="weui-cells__title">收货地址</view>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+            <view class="weui-cell__bd">
+                <textarea value="{{formData.address}}" bindinput="formInputChange" data-field="address"  class="weui-textarea" placeholder="200个字符以内" style="height: 3.3em" />
+                <view class="weui-textarea-counter">{{ formData.address ? formData.address.length : 0 }}/200</view>
+            </view>
+        </view>
+    </view>
+    <view class="weui-cells__title">备注</view>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+            <view class="weui-cell__bd">
+                <textarea value="{{formData.additional}}" bindinput="formInputChange" data-field="additional"  class="weui-textarea" placeholder="200个字符以内" style="height: 3.3em" />
+                <view class="weui-textarea-counter">{{ formData.additional ? formData.additional.length : 0 }}/200</view>
+            </view>
+        </view>
+    </view>
+    <mp-toptips msg="{{error}}" type="error" show="{{error}}"></mp-toptips>
+    <view class="weui-btn-area">
+      <button class="weui-btn" type="primary" bindtap="submitForm">下单</button>
+    </view>
+  </view>
+</view>
+<footer />
+<mp-gallery
+  show="{{galleryShow}}"
+  bindhide="hideGallery"
+  img-urls="{{galleryImages}}"
+  hide-on-click
+  showDelete="{{false}}"
+  current="{{0}}"
+></mp-gallery>

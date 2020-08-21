@@ -81,11 +81,7 @@ var (
 
 var testCases = []*ApiCase{
 	{
-		sql:  "INSERT INTO customer_user (id,open_id,token,expired_at) VALUES (1,?,?, DATE_ADD(NOW(),INTERVAL 7 DAY))",
-		bind: []interface{}{"testopenid", testToken},
-	},
-	{
-		sql:  "INSERT INTO business_user (id,open_id,token,expired_at) VALUES (1,?,?, DATE_ADD(NOW(),INTERVAL 7 DAY))",
+		sql:  "INSERT INTO user (id,open_id,token,expired_at) VALUES (1,?,?, DATE_ADD(NOW(),INTERVAL 7 DAY))",
 		bind: []interface{}{"testopenid", testToken},
 	},
 	{
@@ -320,7 +316,7 @@ var testCases = []*ApiCase{
 		}),
 	},
 	{msg: "customer pay for order 1",
-		request:  testReq("POST", "/customer/orders/1", toJson(testOrderPay)),
+		request:  testReq("POST", "/business/orders/1", toJson(testOrderPay)),
 		response: testResp(nil),
 	},
 	{msg: "business transport order 1",
@@ -375,7 +371,7 @@ var testCases = []*ApiCase{
 		response: testResp(nil),
 	},
 	{msg: "customer pay order 4",
-		request:  testReq("POST", "/customer/orders/4", toJson(testOrderPay)),
+		request:  testReq("POST", "/business/orders/4", toJson(testOrderPay)),
 		response: testResp(nil),
 	},
 	{msg: "business repaid order 4",
@@ -387,7 +383,7 @@ var testCases = []*ApiCase{
 		response: testResp(nil),
 	},
 	{msg: "customer pay order 5",
-		request:  testReq("POST", "/customer/orders/5", toJson(testOrderPay)),
+		request:  testReq("POST", "/business/orders/5", toJson(testOrderPay)),
 		response: testResp(nil),
 	},
 	{msg: "customer want cancel order 5",
@@ -442,7 +438,7 @@ var testCases = []*ApiCase{
 		response: testHttpStatus(404),
 	},
 	{msg: "405",
-		request:  testReq("GET", "/business/login", ""),
+		request:  testReq("GET", "/login", ""),
 		response: testHttpStatus(405),
 	},
 }
@@ -460,7 +456,7 @@ type ApiCase struct {
 func TestApi(t *testing.T) {
 	db := NewDB(os.Getenv("DB_DSN"))
 	initDBSchema(db, "../sql/")
-	s := NewServer(db, nil, nil, 8080)
+	s := NewServer(db, nil, ":8080", "", "")
 	ts := httptest.NewServer(s)
 	defer ts.Close()
 
@@ -544,7 +540,7 @@ func buildRequest(host string, tr *testRequest) *http.Request {
 		body = bytes.NewReader(tr.body)
 	}
 	req, _ := http.NewRequest(tr.method, host+tr.url, body)
-	req.Header.Set("SessionKey", testToken)
+	req.Header.Set("Session-Key", testToken)
 	return req
 }
 

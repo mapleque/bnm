@@ -4,7 +4,7 @@ CREATE TABLE item (
     bid INT UNSIGNED NOT NULL,
     name VARCHAR(512) NOT NULL,
     price INT UNSIGNED NOT NULL DEFAULT 0,
-    pic TEXT,
+    pic MediumBlob,
     `desc` TEXT,
     status TINYINT NOT NULL DEFAULT 0,
     update_at DATETIME DEFAULT NOW(),

@@ -1,0 +1,13 @@
+{
+  "usingComponents": {
+    "mp-gallery": "../components/gallery/gallery",
+    "footer": "../footer/footer",
+    "mp-toptips": "../components/toptips/toptips",
+    "mp-cell": "../../../components/cell/cell",
+    "mp-cells": "../../../components/cells/cells",
+    "mp-checkbox": "../../../components/checkbox/checkbox",
+    "mp-checkbox-group": "../../../components/checkbox-group/checkbox-group",
+    "mp-form": "../../../components/form/form"
+  },
+  "navigationBarTitleText": "BangNiMai"
+}

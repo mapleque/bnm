@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS customer_user;
-CREATE TABLE customer_user (
+DROP TABLE IF EXISTS user;
+CREATE TABLE user (
     id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     open_id VARCHAR(64) NOT NULL,
     union_id VARCHAR(64) DEFAULT "",
@@ -7,4 +7,4 @@ CREATE TABLE customer_user (
     expired_at DATETIME DEFAULT NOW()
 ) DEFAULT CHARSET=utf8;
 
-ALTER TABLE `customer_user` ADD UNIQUE(open_id), ADD UNIQUE(token);
+ALTER TABLE `user` ADD UNIQUE(open_id), ADD UNIQUE(token);

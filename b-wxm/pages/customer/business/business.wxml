@@ -1,0 +1,42 @@
+<!--pages/customer/business/business.wxml-->
+<view class="page">
+  <view class="page__hd">
+    <view class="page__title">
+      <image class="page__avatar" src="{{profile.avatar || businessDefaultIcon}}"/>
+      <view class="page__name">{{profile.name}}</view>
+    </view>
+    <view class="page__desc">{{profile.desc}}</view>
+  </view>
+  <view style="border-bottom:1px solid #e7e7e7"></view>
+  <view class="page__bd">
+    <view class="list">
+      <view wx:key="id" wx:for="{{itemList}}" class="list__item {{item.status ? '' : 'list__item_highlight'}}">
+        <view class="row">
+          <view class="col-3">
+            <image wx:if="{{item.pic}}" class="list__item_avatar" src="{{item.pic}}" bindtap="showGallery" mode="aspectFill" data-pic="{{item.pic}}"/>
+            <image wx:else class="list__item_avatar" src="{{itemDefaultIcon}}" mode="aspectFill" />
+          </view>
+          <view class="col-9" bindtap="itemClick" data-item="{{item}}">
+            <view class="list__item_title">{{item.name}}</view>
+            <view class="list__item_desc price">{{item.price/100}}</view>
+          </view>
+        </view>
+        <view class="row" bindtap="itemClick" data-item="{{item}}">
+          <view class="col-12">
+            <view class="list__item_desc">{{item.desc}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="list__end" wx:if="{{noMoreData}}"></view>
+    </view>
+  </view>
+</view>
+<footer />
+<mp-gallery
+  show="{{galleryShow}}"
+  bindhide="hideGallery"
+  img-urls="{{galleryImages}}"
+  hide-on-click
+  showDelete="{{false}}"
+  current="{{0}}"
+></mp-gallery>

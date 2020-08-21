@@ -7,7 +7,7 @@ type Business struct {
 	Desc     string `json:"desc"`
 	Qrcode   string `json:"qrcode"`
 	Wxid     string `json:"wxid"`
-	Status   int    `json"status"`
+	Status   int    `json:"status"`
 	CreateAt string `json:"create_at"`
 }
 

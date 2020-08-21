@@ -1,0 +1,3 @@
+<!--pages/stage/stage.wxml-->
+<view wx:if="{{content}}" class="stage">{{content}}</view>
+<view wx:else class="stage stage__{{stage}}">{{dict[stage]}}</view>

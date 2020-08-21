@@ -1,0 +1,7 @@
+<!--pages/customer/footer/footer.wxml-->
+<view class="footer__padding"></view>
+<view class="footer">
+  <view class="footer__item" wx:if="{{hasUserInfo}}"><image class="footer__avatar" src="{{userInfo.avatarUrl}}"/></view>
+  <view bindtap="toAddress" class="footer__item footer__btn">地址</view>
+  <view bindtap="toOrder" class="footer__item footer__btn">订单</view>
+</view>

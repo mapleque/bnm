@@ -1,0 +1,25 @@
+/* pages/stage/stage.wxss */
+.stage {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  border-radius: 8px;
+  padding: 4px;
+  color: #fff;
+  font-size: 10px;
+  background-color: #888888;
+  width: 10px;
+}
+
+.stage__new {
+  background-color: #576B95;
+}
+.stage__paid {
+  background-color: #09BB07;
+}
+.stage__transport {
+  background-color: #353535;
+}
+.stage__c_w_cancel {
+  background-color: #E64340
+}

@@ -1,0 +1,27 @@
+<!--pages/customer/order/order.wxml-->
+<view class="page">
+  <view class="page__hd">
+    <view class="page__title">我的订单</view>
+  </view>
+  <view class="page__bd">
+    <view class="list">
+      <view wx:key="index" wx:for="{{orderList}}" class="list__item {{ item.status ? 'list__item_highlight': '' }}">
+          <view bindtap="orderClick" data-item="{{item}}">
+            <view class="list__item_title">订单号：{{item.id}}-{{item.create_at}}</view>
+            <view class="list__item_desc">{{item.name}}</view>
+            <view class="list__item_desc price">{{item.price/100}}*{{item.counts}}</view>
+            <stage stage="{{item.stage}}"></stage>
+          </view>
+          <view>
+            <view wx:if="{{item.exp_no}}" class="list__item_desc">快递单号：{{item.exp_no}}</view>
+            <view class="list__item_desc">收货人：{{item.reciever}}-{{item.phone}}</view>
+            <view class="list__item_desc">收货地址：{{item.address}}</view>
+            <view wx:if="{{item.additional}}" class="list__item_desc">备注：{{item.additional}}</view>
+          </view>
+      </view>
+      <view class="list__end" wx:if="noMoreData"></view>
+    </view>
+  </view>
+</view>
+<mp-actionSheet bindactiontap="actionClick" show="{{actions.show}}" actions="{{actions.groups}}" title="{{actions.title}}">
+</mp-actionSheet>

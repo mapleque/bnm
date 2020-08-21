@@ -1,0 +1,56 @@
+<!--pages/business/valid/valid.wxml-->
+<view class="page">
+  <view class="page__hd">
+    <view class="page__title">商户认证</view>
+    <view class="page__desc">提交商户信息后，管理员会定期进行审核认证（一个工作日）。</view>
+  </view>
+  <view class="page__bd">
+    <mp-form id="form" rules="{{rules}}" models="{{formData}}"></mp-form>
+    <view class="weui-cells__title">商户名称</view>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+            <view class="weui-cell__bd">
+                <input value="{{formData.name}}" bindinput="formInputChange" data-field="name"  class="weui-input" placeholder="2-8个字符"/>
+            </view>
+        </view>
+    </view>
+    <view class="weui-cells__title">商户头像</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell_bd">
+          <mp-uploader
+            bindfail="uploadError"
+            bindsuccess="uploadSuccess"
+            binddelete="deleteFile"
+            bindselect="selectFile"
+            upload="{{uploadFile}}"
+            sizeType="{{avatarSizeType}}"
+            max-count="1"
+          ></mp-uploader>
+        </view>
+      </view>
+    </view>
+    <view class="weui-cells__title">商户简介</view>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+            <view class="weui-cell__bd">
+                <textarea value="{{formData.desc}}" bindinput="formInputChange" data-field="desc"  class="weui-textarea" placeholder="200个字符以内" style="height: 3.3em" />
+                <view class="weui-textarea-counter">{{ formData.desc ? formData.desc.length : 0 }}/200</view>
+            </view>
+        </view>
+    </view>
+    <view class="weui-cells__title">商户主微信ID</view>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+            <view class="weui-cell__bd">
+                <input value="{{formData.wxid}}" bindinput="formInputChange" data-field="wxid"  class="weui-input" placeholder="微信ID" />
+            </view>
+        </view>
+    </view>
+    <mp-toptips msg="{{error}}" type="error" show="{{error}}"></mp-toptips>
+    <view class="weui-btn-area">
+      <button class="weui-btn" type="primary" bindtap="submitForm">确定</button>
+      <view>注意：频繁修改商户认证信息可能会影响您的审核速度。</view>
+    </view>
+  </view>
+</view>

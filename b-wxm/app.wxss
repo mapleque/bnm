@@ -1,0 +1,159 @@
+/**app.wxss**/
+@import './components/weui-wxss/dist/style/weui.wxss';
+.page__hd {
+    padding: 20px 10px;
+}
+.page__title {
+    text-align: left;
+    font-size: 20px;
+    font-weight: 400;
+    display: flex;
+    justify-content: center;
+}
+.page__desc {
+    margin-top: 5px;
+    color: #888888;
+    text-align: left;
+    font-size: 14px;
+}
+.page__avatar {
+    text-align: center;
+    line-height: 60px;
+    height: 60px;
+    max-width: 60px;
+    margin-right: 10px;
+}
+.page__name {
+    text-align: left;
+    line-height: 60px;
+}
+.page__bd {
+    padding-bottom: 40px;
+}
+.page__bd_spacing {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/** list tab **/
+.list__tabs {
+    display: flex;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+}
+.list__tab {
+    flex: 1;
+    min-width: 1px;
+    border: 1px solid #E7E7E7;
+    border-radius: 5px 5px 0 0;
+    background-color: #F7F7F7;
+}
+.list__tab_cur {
+    color: #07C160;
+    border-bottom: none;
+}
+.list__tab_btn {
+    width: 40px;
+    border: 1px solid #E7E7E7;
+    border-radius: 5px;
+    line-height: 40px;
+    background-color: #F7F7F7;
+}
+
+.list__item {
+  border-bottom: 1px solid #E7E7E7;
+  padding: 10px;
+  position: relative;
+}
+.list__item_title {
+  font-size: 16px;
+}
+.list__item_desc {
+  color: #888888;
+  font-size: 14px;
+}
+.list__item_avatar {
+  height: 60px;
+  max-width: 60px;
+  line-height: 60px;
+  text-align: center;
+}
+
+.list__item_highlight {
+  background-color:#F7F7F7;
+}
+
+.list__end {
+  text-align: center;
+  margin-top: 10px;
+}
+.list__end:before {
+  content: '没有更多的数据了';
+  color: #888888;
+  font-size: 14px;
+}
+
+.price:before {
+  content: "¥";
+}
+.price {
+  color: coral;
+  font-size:18px;
+}
+
+/** 栅格系统 **/
+.row {
+  display: flex;
+  margin-bottom: 5px;
+}
+.row:before ,
+.row:after {
+    content:" ";
+    display: table;
+    clear:both;
+}
+
+[class*='col-'] {
+    position: relative;
+    float: left;
+    min-height: 1px;
+    padding: 0 10px;
+}
+
+.col-12 {
+  width: 100%;
+}
+.col-11 {
+  width: 91.66666667%;
+}
+.col-10 {
+  width: 83.33333333%;
+}
+.col-9 {
+  width: 75%;
+}
+.col-8 {
+  width: 66.66666667%;
+}
+.col-7 {
+  width: 58.33333333%;
+}
+.col-6 {
+  width: 50%;
+}
+.col-5 {
+  width: 41.66666667%;
+}
+.col-4 {
+  width: 33.33333333%;
+}
+.col-3 {
+  width: 25%;
+}
+.col-2 {
+  width: 16.66666667%;
+}
+.col-1 {
+  width: 8.33333333%;
+}

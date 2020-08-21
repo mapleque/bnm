@@ -1,0 +1,55 @@
+<!--pages/business/item/add.wxml-->
+<view class="page">
+  <view class="page__hd">
+    <view class="page__title">添加商品</view>
+    <view class="page__desc">首次添加的商品，需要修改状态为发布才能被用户看到。</view>
+  </view>
+  <view class="page__bd">
+    <mp-form id="form" rules="{{rules}}" models="{{formData}}"></mp-form>
+    <view class="weui-cells__title">商品名称</view>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+            <view class="weui-cell__bd">
+                <input value="{{formData.name}}" bindinput="formInputChange" data-field="name"  class="weui-input" placeholder="30个字符以内"/>
+            </view>
+        </view>
+    </view>
+    <view class="weui-cells__title">商品简介</view>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+            <view class="weui-cell__bd">
+                <textarea value="{{formData.desc}}" bindinput="formInputChange" data-field="desc"  class="weui-textarea" placeholder="200个字符以内" style="height: 3.3em" />
+                <view class="weui-textarea-counter">{{ formData.desc ? formData.desc.length : 0 }}/200</view>
+            </view>
+        </view>
+    </view>
+    <view class="weui-cells__title">商品图片</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell_bd">
+          <mp-uploader
+            bindfail="uploadError"
+            bindsuccess="uploadSuccess"
+            binddelete="deleteFile"
+            bindselect="selectFile"
+            upload="{{uploadFile}}"
+            max-count="1"
+            title="商品图片"
+          ></mp-uploader>
+        </view>
+      </view>
+    </view>
+    <view class="weui-cells__title">商品价格（单位：元）</view>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+            <view class="weui-cell__bd">
+                <input type="number" bindinput="formInputChange" data-field="price" class="weui-input" placeholder="价格不能为0" />
+            </view>
+        </view>
+    </view>
+    <mp-toptips msg="{{error}}" type="error" show="{{error}}"></mp-toptips>
+    <view class="weui-btn-area">
+      <button class="weui-btn" type="primary" bindtap="submitForm">确定</button>
+    </view>
+  </view>
+</view>

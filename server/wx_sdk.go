@@ -13,6 +13,14 @@ type WxSDK struct {
 	log    Logger
 }
 
+func NewWxSDK(appid, secret string) *WxSDK {
+	return &WxSDK{
+		AppId:  appid,
+		Secret: secret,
+		log:    NewStdLogger("[WX]"),
+	}
+}
+
 type WxAuthenticate struct {
 	OpenId  string
 	UnionId string
@@ -38,11 +46,13 @@ func (wx *WxSDK) Jscode2session(code string) (*WxAuthenticate, error) {
 func (wx *WxSDK) HttpGet(url string) ([]byte, error) {
 	resp, err := http.Get(url)
 	if err != nil {
+		wx.log.Error("HTTP GET", url, err)
 		return nil, err
 	}
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
+		wx.log.Error("HTTP GET", url, err)
 		return nil, err
 	}
 	wx.log.Trace("HTTP GET", url, string(body))

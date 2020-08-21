@@ -4,7 +4,7 @@ import (
 	"net/http"
 )
 
-func (s *Server) BusinessLogin(w http.ResponseWriter, r *http.Request) {
+func (s *Server) Login(w http.ResponseWriter, r *http.Request) {
 	code := s.GetParam(r, "code").String()
 	if code == "" {
 		s.Response(w, STATUS_SERVER_ERROR, MSG_INVALID_CODE)
@@ -12,7 +12,7 @@ func (s *Server) BusinessLogin(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// request open_id from wx api
-	auth, err := s.Wx2B.Jscode2session(code)
+	auth, err := s.Wx.Jscode2session(code)
 	if err != nil {
 		s.Response(w, STATUS_SERVER_ERROR, err)
 		return
@@ -22,7 +22,7 @@ func (s *Server) BusinessLogin(w http.ResponseWriter, r *http.Request) {
 	token := GetSessionToken()
 
 	if exist, err := s.DB.Query(
-		"SELECT * FROM business_user WHERE open_id = ? LIMIT 1",
+		"SELECT * FROM user WHERE open_id = ? LIMIT 1",
 		auth.OpenId,
 	).Exist(); err != nil {
 		s.Response(w, STATUS_SERVER_ERROR, err)
@@ -30,7 +30,7 @@ func (s *Server) BusinessLogin(w http.ResponseWriter, r *http.Request) {
 	} else if !exist {
 		// create a new user data
 		if err := s.DB.Execute(
-			"INSERT INTO business_user "+
+			"INSERT INTO user "+
 				"(open_id, union_id, token, expired_at) "+
 				"VALUES (?,?,?,DATE_ADD(NOW(),INTERVAL 7 DAY))",
 			auth.OpenId,
@@ -42,9 +42,9 @@ func (s *Server) BusinessLogin(w http.ResponseWriter, r *http.Request) {
 		}
 	} else {
 		if err := s.DB.Execute(
-			"UPDATE business_user "+
+			"UPDATE user "+
 				"SET token = ?, expired_at = DATE_ADD(NOW(),INTERVAL 7 DAY) "+
-				"WHERE openid = ? LIMIT 1",
+				"WHERE open_id = ? LIMIT 1",
 			token,
 			auth.OpenId,
 		).Error(); err != nil {
@@ -56,8 +56,8 @@ func (s *Server) BusinessLogin(w http.ResponseWriter, r *http.Request) {
 	s.Success(w, token)
 }
 
-func (s *Server) BusinessAuth(w http.ResponseWriter, r *http.Request) {
-	token := r.Header.Get("SessionKey")
+func (s *Server) Auth(w http.ResponseWriter, r *http.Request) {
+	token := r.Header.Get("Session-Key")
 	if token == "" {
 		s.Response(w, STATUS_FORBIDDEN, MSG_FORBIDDEN)
 		panic(ERROR_HANDLER_CHAIN_ABORD)
@@ -65,7 +65,7 @@ func (s *Server) BusinessAuth(w http.ResponseWriter, r *http.Request) {
 
 	var buid int
 	if err := s.DB.Query(
-		"SELECT id FROM business_user WHERE token = ? AND expired_at > NOW() LIMIT 1",
+		"SELECT id FROM user WHERE token = ? AND expired_at > NOW() LIMIT 1",
 		token,
 	).Scan(&buid); err != nil {
 		s.Response(w, STATUS_FORBIDDEN, MSG_LOGIN_EXPIRED)
@@ -73,4 +73,5 @@ func (s *Server) BusinessAuth(w http.ResponseWriter, r *http.Request) {
 	}
 
 	s.SaveParam(r, "buid", buid)
+	s.SaveParam(r, "cuid", buid)
 }
